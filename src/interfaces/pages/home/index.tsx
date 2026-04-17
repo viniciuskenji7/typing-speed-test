@@ -6,10 +6,9 @@ import { Button } from "../../components/button";
 import { LayoutBlur } from "../../layouts/LayoutBlur";
 import Image from "next/image";
 import searchText from "@/src/utils/searchText";
-import { DifficultyConfig, DifficultyLevel} from "../../types/IPropsInfobar";
+import { DifficultyConfig, DifficultyLevel, Mode} from "../../types/IPropsInfobar";
 
 export const HomePage = () => {
-
     const [segundos, setSegundos] = useState(0);
     const [startTime, setStartTime] = useState(false);
     const [content, setContent] = useState('');
@@ -35,6 +34,8 @@ export const HomePage = () => {
         medium,
         hard
     };
+
+    const [mode, setMode] = useState<Mode>('Timed');
 
     const [difficulty, setDifficulty] = useState<DifficultyLevel>('easy');
     const [text, setText] = useState<string>(easy[0]);
@@ -94,12 +95,42 @@ export const HomePage = () => {
 
     // Startando tempo com clique
     const handleClickTime = () => {
-        if (startTime) return;
+        if (startTime) return;  
         const intervalo = setInterval(() => {
             setSegundos(s => s + 1);
         }, 1000);
         setStartTime(true);
         return () => clearInterval(intervalo);
+
+        // Ideias para inclusão de logica com outros modos
+
+        // if (mode === 'Timed') {    
+        //     const intervalo = setInterval(() => {
+        //         setSegundos(s => s - 1);
+        //     }, 1000);
+        //     setStartTime(true);
+        //     return () => clearInterval(intervalo);
+        // }
+        // if (mode === 'Passage') {
+        //     const intervalo = setInterval(() => {
+        //         setSegundos(s => s + 1);
+        //     }, 1000);
+        //     setStartTime(true);
+        //     return () => clearInterval(intervalo);
+        // }
+    }
+
+    const handleMode = (mode: Mode) => {
+        if (startTime) return;
+        setMode(mode);
+
+        // Ideias para tratativa de tempo com outros modos
+        // if (mode === 'Timed') {
+        //     setSegundos(60);
+        // }
+        // if (mode === 'Passage') {
+        //     setSegundos(0);
+        // }
     }
 
     
@@ -111,6 +142,8 @@ export const HomePage = () => {
                 accuracy={accuracy}
                 difficulty={difficulty}
                 changeDifficulty={handleDifficulty}
+                mode={mode}
+                changeMode={handleMode}
             />
             <div className={!startTime ? 'flex flex-col absolute top-120 left-200 gap-3 items-center justify-center' : 'hidden'}>
                 <Button

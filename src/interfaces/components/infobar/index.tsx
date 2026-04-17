@@ -4,11 +4,11 @@ import { InfobarTime } from "./infobarTime"
 
 
 
-export const Infobar = ({time, wpm, accuracy, difficulty, changeDifficulty}: PropsInfobar) => {
+export const Infobar = ({time, wpm, accuracy, difficulty, changeDifficulty, mode, changeMode}: PropsInfobar) => {
     return (
         <header className="mt-20 w-full p-3 flex justify-between items-center border-b-2 border-b-neutral-700">
             <InfobarTime time={time} wpm={wpm} accuracy={accuracy} />
-            <InfobarDifficulty difficulty={difficulty} changeDifficulty={changeDifficulty}/>
+            <InfobarDifficulty difficulty={difficulty} changeDifficulty={changeDifficulty} mode={mode} changeMode={changeMode}/>
         </header>
     )
 }

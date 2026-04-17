@@ -1,10 +1,13 @@
+'use client';
 import Image from "next/image"
+import { useTestResults } from "../../contexts/TestResultsContext";
 
 
 
 
 export const Navbar = () => {
 
+    const { lastResult } = useTestResults();
 
     return (
         <nav className="flex justify-between items-center">
@@ -24,7 +27,7 @@ export const Navbar = () => {
                     />
                 </span>
                 <h2 className="text-neutral-400">Personal Best:</h2>
-                <h2 className="text-white">92 WPM</h2>
+                <h2 className="text-white">{lastResult?.wpm || 0}</h2>
             </div>
         </nav>
     )

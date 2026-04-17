@@ -4,6 +4,8 @@ export interface ITestResult {
     time: number;
     difficulty: 'easy' | 'medium' | 'hard';
     timestamp: number;
+    charactersRights: number;
+    charactersWrong: number;
 }
 
 export interface ITestResultsContext {

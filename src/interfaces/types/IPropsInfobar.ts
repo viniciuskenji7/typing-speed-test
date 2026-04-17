@@ -7,6 +7,8 @@ import { MouseEventHandler } from "react";
 export interface PropsDifficulty {
     difficulty: DifficultyLevel;
     changeDifficulty: (level: DifficultyLevel) => void;
+    mode: Mode;
+    changeMode: (mode: Mode) => void;
 }
 
 export interface DifficultyConfig {
@@ -15,6 +17,7 @@ export interface DifficultyConfig {
     hard: string[];
 }
 
+export type Mode = 'Timed' | 'Passage';
 export type DifficultyLevel = 'easy' | 'medium' | 'hard';
 
 

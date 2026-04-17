@@ -1,10 +1,15 @@
+'use client';
 import Image from "next/image"
 import { ListResult } from "../../components/listResult"
 import { Button } from "../../components/button"
+import { useRouter } from "next/navigation"
 
 
 
 export const ResultsPage = () => {
+
+    const router = useRouter();
+
     return (
         <div className="w-full flex flex-col justify-center items-center mt-30">
             <div className="flex flex-col items-center gap-10">
@@ -22,8 +27,9 @@ export const ResultsPage = () => {
                 </div>
                 <ListResult />
                 <Button
-                    colors="white"
-                    text="black"
+                    colors="neutral"
+                    text="light"
+                    event={() => router.push('/')}
                 >
                     Go Again
                     <Image 

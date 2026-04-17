@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "../interfaces/components/navbar";
 import { Sora } from 'next/font/google';
 import './globals.css';
+import { TestResultsProvider } from "../interfaces/contexts/TestResultsContext";
 
 const sora = Sora({
   weight: ['400', '600', '700'],
@@ -22,8 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={sora.className}>
       <body>
-        <Navbar />
-        {children}
+        <TestResultsProvider>
+          <Navbar />
+          {children}
+        </TestResultsProvider>
       </body>
     </html>
   );

@@ -12,7 +12,7 @@ export const Button = ({
     const bgColors = {
         primary: 'bg-blue-600',
         neutral: 'bg-neutral-800',
-        white: 'bg-neutral-0',
+        white: 'bg-neutral-50',
     };
 
     const textColors = {
