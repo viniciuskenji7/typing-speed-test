@@ -1,9 +1,4 @@
 import { MouseEventHandler } from "react";
-
-
-
-
-
 export interface PropsDifficulty {
     difficulty: DifficultyLevel;
     changeDifficulty: (level: DifficultyLevel) => void;
