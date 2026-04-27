@@ -12,6 +12,7 @@ export const HomePage = () => {
     const [segundos, setSegundos] = useState(0);
     const [startTime, setStartTime] = useState(false);
     const [content, setContent] = useState('');
+    const [timeIncrement, setTimeIncrement] = useState(0);
     
     // Logica dos levels
     const levels = searchText;
@@ -35,7 +36,7 @@ export const HomePage = () => {
         hard
     };
 
-    const [mode, setMode] = useState<Mode>('Timed');
+    const [mode, setMode] = useState<Mode>('Passage');
 
     const [difficulty, setDifficulty] = useState<DifficultyLevel>('easy');
     const [text, setText] = useState<string>(easy[0]);
@@ -51,7 +52,7 @@ export const HomePage = () => {
     // Comparação
     const comparison = useMemo((): { char: string; status: 'pending' | 'correct' | 'incorrect' | 'finish' }[] => {
         return text.split('').map((char: string, index: number) => {
-
+            
             const typedChar: string = content[index];
             
             if (typedChar == null) {
@@ -90,47 +91,50 @@ export const HomePage = () => {
             c => c.status === 'correct'
         ).length;
 
-        return Math.round((correctChars / 5) / (segundos / 60));
-    }, [comparison, segundos]);
+        if (mode === 'Timed') {
+            return Math.round((correctChars / 5) / (segundos / 60));
+        } else {
+            return Math.round((correctChars / 5) / (timeIncrement / 60));
+        }
+    }, [comparison, segundos, timeIncrement, mode]);
 
     // Startando tempo com clique
     const handleClickTime = () => {
-        if (startTime) return;  
-        const intervalo = setInterval(() => {
-            setSegundos(s => s + 1);
-        }, 1000);
-        setStartTime(true);
-        return () => clearInterval(intervalo);
+        // if (startTime) return;  
+        // const intervalo = setInterval(() => {
+        //     setSegundos(s => s + 1);
+        // }, 1000);
+        // setStartTime(true);
+        // return () => clearInterval(intervalo);
 
         // Ideias para inclusão de logica com outros modos
 
-        // if (mode === 'Timed') {    
-        //     const intervalo = setInterval(() => {
-        //         setSegundos(s => s - 1);
-        //     }, 1000);
-        //     setStartTime(true);
-        //     return () => clearInterval(intervalo);
-        // }
-        // if (mode === 'Passage') {
-        //     const intervalo = setInterval(() => {
-        //         setSegundos(s => s + 1);
-        //     }, 1000);
-        //     setStartTime(true);
-        //     return () => clearInterval(intervalo);
-        // }
+        if (mode === 'Timed') {   
+            const intervalo = setInterval(() => {
+                setSegundos(s => s - 1);
+                setTimeIncrement(s => s + 1);
+            }, 1000);
+            setStartTime(true);
+            return () => clearInterval(intervalo);
+        }
+        if (mode === 'Passage') {
+            const intervalo = setInterval(() => {
+                setSegundos(s => s + 1);
+            }, 1000);
+            setStartTime(true);
+            return () => clearInterval(intervalo);
+        }
     }
 
     const handleMode = (mode: Mode) => {
         if (startTime) return;
         setMode(mode);
-
-        // Ideias para tratativa de tempo com outros modos
-        // if (mode === 'Timed') {
-        //     setSegundos(60);
-        // }
-        // if (mode === 'Passage') {
-        //     setSegundos(0);
-        // }
+        if (mode === 'Timed') {
+            setSegundos(60);
+        }
+        if (mode === 'Passage') {
+            setSegundos(0);
+        }
     }
 
     

@@ -13,6 +13,7 @@ export const SpeedTest = ({ startTime, comparison, content, setContent, text }: 
                 textareaRef.current.focus();
             }
         }
+        
     }, [startTime, textareaRef]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -21,12 +22,9 @@ export const SpeedTest = ({ startTime, comparison, content, setContent, text }: 
         }
     };
 
-
     const handlePaste = (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
         event.preventDefault();
     }
-
-
 
     return (
         <section className="flex justify-center items-center w-full flex-wrap text-neutral-400 text-5xl border-b-2 border-b-neutral-700 p-10">
